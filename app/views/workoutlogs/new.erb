@@ -1,0 +1,19 @@
+<h1>Time to track your workouts!</h1>
+
+<form action="/workoutlogs" method="POST">
+
+                <label><strong>Date: </strong></label>
+                <input type="date" name:"created_at">
+           
+                <label><strong>Workout Name:</strong></label>
+                <input type="text" name="workout_name">
+          
+                <label><strong>Number of Sets:</strong></label>
+                <input type="number" name="num_of_sets"></input>
+           
+                <label><strong>Number of Reps:</strong></label>
+                <input type="number" name="num_of_reps">
+                <br></br>
+        <button type="submit">Submit</button>
+</form>
+<p><%= @error %></p>

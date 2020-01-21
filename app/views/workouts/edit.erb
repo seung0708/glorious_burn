@@ -1,0 +1,17 @@
+<h1>Edit Workout for <%= @workout.name %></h1>
+
+<form action="/workouts/<%=@workout.id%>" method="POST">
+        <input type="hidden" name="_method" value="patch">
+        <label><strong>Workout Name:</strong></label>
+        <input type="text" name="workout[name]" value="<%= @workout.name %>">
+        <br></br>
+        <label><strong>Workout Description:</strong></label>
+        <br></br>
+        <textarea name="workout[description]" value="<%= @workout.description %>"></textarea>
+        <br></br>
+        <label><strong>Workout Image:</strong></label>
+        <input type="text" name="workout[image]" value="<%= @workout.image %>">
+        <br></br>
+        <button type="submit">Edit workout</button>
+</form>
+<p><%= @error %></p>

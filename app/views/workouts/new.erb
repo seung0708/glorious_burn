@@ -1,0 +1,17 @@
+<h1>Create a Workout</h1>
+
+<form action="/workouts" method="POST">
+        <label><strong>Workout Name:</strong></label>
+        <input type="text" name="name">
+        <br></br>
+        <label><strong>Workout Description:</strong></label>
+        <br></br>
+        <textarea name="description"></textarea>
+        <br></br>
+        <label><strong>Workout Image:</strong></label>
+        <input type="text" name="image">
+        <br></br>
+        <button type="submit">Add workout</button>
+</form>
+<p><%= @error %></p>
+    
