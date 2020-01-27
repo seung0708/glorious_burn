@@ -21,6 +21,10 @@ class ApplicationController < Sinatra::Base
     User.find_by(id: session[:user_id])
   end
 
+  #def workouts 
+   #Workout.find_or_create_by(id: params[id])
+  #end 
+
   def require_login 
     unless logged_in? 
       redirect '/login'

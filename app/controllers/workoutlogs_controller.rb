@@ -1,18 +1,22 @@
 class WorkoutlogController < ApplicationController
 
 get '/workoutlogs/new' do
+    @workouts = Workout.all
     erb :'/workoutlogs/new'
+
 end 
     
-post '/workoutlogs' do 
-    log = current_user.workoutlogs.build(params)
-    if log.save
+post '/workoutlogs' do
+    workoutlog = Workoutlog.new(created_at: params["created_at"], sets: params["sets"], reps: params["reps"])
+    workoutlog.workout_ids = Workout.find_or_create_by(id: params[:id])
+    workoutlog.user = current_user
+    if workoutlog.save 
         redirect '/workoutlogs'
     else
-        @error = "No data entered. Please try again."
+    @error = "No data entered. Please try again."
         erb :'/workoutlogs/new'
     end
-end 
+end  
 
 get '/workoutlogs' do
     if logged_in?
@@ -23,22 +27,15 @@ get '/workoutlogs' do
     end
 end 
 
-#Show
-    #make a get request to '/workouts/:id' ()
-
 get '/workoutlogs/:id' do
-    #binding.pry
    @workoutlog = Workoutlog.find_by(id: params[:id])
-   if @workoutlog 
+   if @workoutlog.update(created_at: params["created_at"], name: params["name"], sets: params["sets"], reps: params["reps"])
      erb :'workoutlogs'    
    else 
-      redirect '/workoutlogs'
+      redirect '/workoutlogs/:id'
     end    
-end 
+end
 
-
-# Destroy
-# make a delete request to '/recipes/id'
 delete '/workoutlogs/:id' do 
     workoutlog = Workoutlog.find(params[:id])
     workoutlog.destroy 

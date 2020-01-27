@@ -1,19 +1,22 @@
 <h1>Time to track your workouts!</h1>
 
 <form action="/workoutlogs" method="POST">
+    <lable>Date</label>
+    <input type="date" name="created_at"><br></br>
+    
+    <label>Workout Name</label>
+    <input type="text" name="name"><br></br>
 
-                <label><strong>Date: </strong></label>
-                <input type="date" name:"created_at">
-           
-                <label><strong>Workout Name:</strong></label>
-                <input type="text" name="workout_name">
-          
-                <label><strong>Number of Sets:</strong></label>
-                <input type="number" name="num_of_sets"></input>
-           
-                <label><strong>Number of Reps:</strong></label>
-                <input type="number" name="num_of_reps">
-                <br></br>
-        <button type="submit">Submit</button>
+    <label><h4>Number of Sets:</h4></label>
+    <input type="number" name="sets"><br></br>
+        
+    <label><h4>Number of Reps:</h4></label>
+    <input type="number" name="reps"><br></br>
+
+    <input type="submit" value="Submit">
 </form>
 <p><%= @error %></p>
+
+<!-- <% @workouts.each do |workout| %>
+    <input type="checkbox" name="workout_ids[]" value="<%= workout.id %>"><%= workout.name %></input> 
+<% end %> -->

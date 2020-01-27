@@ -10,7 +10,6 @@ ActiveRecord::Base.establish_connection(
 )
 
 require './app/controllers/application_controller'
-#require 'httparty'
 require 'pry'
 require_all 'app'
 require 'sinatra'

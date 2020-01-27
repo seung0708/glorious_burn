@@ -11,7 +11,12 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20200121030759) do
+ActiveRecord::Schema.define(version: 20200126132817) do
+
+  create_table "associatelogs", force: :cascade do |t|
+    t.integer "workoutlog_id"
+    t.integer "workout_id"
+  end
 
   create_table "users", force: :cascade do |t|
     t.string "username"
@@ -20,15 +25,15 @@ ActiveRecord::Schema.define(version: 20200121030759) do
 
   create_table "workoutlogs", force: :cascade do |t|
     t.integer  "user_id"
-    t.integer  "num_of_sets"
-    t.integer  "num_of_reps"
-    t.string   "workout_name"
+    t.integer  "reps"
     t.datetime "created_at"
+    t.integer  "sets"
+    t.string   "name"
   end
 
   create_table "workouts", force: :cascade do |t|
     t.string  "name"
-    t.text    "description"
+    t.string  "description"
     t.string  "image"
     t.integer "user_id"
   end

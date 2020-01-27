@@ -1,20 +1,25 @@
 <h1>Daily Logs</h1>
 <a href="/workoutlogs/new">Add a Log</a>
-   <table>
-        <thead>
-        <tr>
-            <% @workoutlog.each do |workoutlog| %>
-            <th><%= workoutlog.created_at %></th>
-            
-        </tr>
-        </thead>
-        <tbody>
-        <tr>  
-            <td><%= workoutlog.workout_name %></td>
-            <td><%= workoutlog.num_of_sets %></td>
-            <td><%= workoutlog.num_of_reps %></td> 
-        </tr> 
-        </tbody>
-        <% end %>
+
+<table>
+    <tr>
+        <th>Date</th>
+        <th>Workout Name</th>
+        <th>Number of Sets</th>
+        <th>Number of Reps</th>
+        <th>Edit</th>
+    </tr>
+    <tr>
+    <% @workoutlog.each do |workoutlog| %>
+        <td><%= workoutlog.created_at %></td>
+        <td><%= workoutlog.name %></td>
+        <!-- <% workoutlog.workout_ids.each do |workout| %>
+            <td><%= workout.name %></td>
+        <% end %> -->
+        <td><%= workoutlog.sets %></td>
+        <td><%= workoutlog.reps %></td>
+        <td><a href="/workoutlogs/<%= workoutlog.id %>">Edit</a><td>
+    </tr>
+    <% end %> 
 </table>
         
