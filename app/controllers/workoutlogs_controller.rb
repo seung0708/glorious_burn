@@ -7,10 +7,10 @@ get '/workoutlogs/new' do
 end 
     
 post '/workoutlogs' do
-    workoutlog = Workoutlog.new(created_at: params["created_at"], sets: params["sets"], reps: params["reps"])
-    workoutlog.workout_ids = Workout.find_or_create_by(id: params[:id])
-    workoutlog.user = current_user
-    if workoutlog.save 
+    workoutlog = current_user.workoutlogs.build(params)
+    workout_ids = Workout.find_or_create_by(id: params[:id])
+    workoutlog.workouts << workout_ids
+     if workoutlog.save 
         redirect '/workoutlogs'
     else
     @error = "No data entered. Please try again."
@@ -28,17 +28,30 @@ get '/workoutlogs' do
 end 
 
 get '/workoutlogs/:id' do
-   @workoutlog = Workoutlog.find_by(id: params[:id])
-   if @workoutlog.update(created_at: params["created_at"], name: params["name"], sets: params["sets"], reps: params["reps"])
-     erb :'workoutlogs'    
-   else 
-      redirect '/workoutlogs/:id'
-    end    
+    @workoutlogs = Workoutlog.find(params[:id])
+    erb :'/workoutlogs/show'
 end
 
+get '/workoutlogs/:id/edit' do
+    @workoutlog = Workoutlog.find_by(params[:id])
+     erb :'workoutlogs/edit'        
+end
+
+patch '/workoutlogs/:id' do 
+    @workoutlog = Workoutlog.find(params[:id])
+    if !params["workoutlog"]["sets"].empty? && !params["workoutlog"]["reps"].empty?
+    @workoutlog.update(params["workoutlog"])
+    redirect "/workoutlogs"
+    else 
+        @error = "Fields must not be empty. Please try again"
+        erb :'/workoutlogs/edit'
+    end     
+end 
+
+
 delete '/workoutlogs/:id' do 
-    workoutlog = Workoutlog.find(params[:id])
-    workoutlog.destroy 
+ workoutlog = Workoutlog.find(params[:id])
+  workoutlog.destroy 
     redirect '/workoutlogs'
     end 
 end 

@@ -4,8 +4,12 @@
     <lable>Date</label>
     <input type="date" name="created_at"><br></br>
     
-    <label>Workout Name</label>
-    <input type="text" name="name"><br></br>
+    <!-- <label>Workout Name</label>
+    <input type="text" name="name"><br></br> -->
+    
+    <% @workouts.each do |workout| %>
+    <input type="checkbox" name="workout_ids[]" value="<%= workout.id %>"><%= workout.name %></input> 
+    <% end %>
 
     <label><h4>Number of Sets:</h4></label>
     <input type="number" name="sets"><br></br>
@@ -16,7 +20,3 @@
     <input type="submit" value="Submit">
 </form>
 <p><%= @error %></p>
-
-<!-- <% @workouts.each do |workout| %>
-    <input type="checkbox" name="workout_ids[]" value="<%= workout.id %>"><%= workout.name %></input> 
-<% end %> -->

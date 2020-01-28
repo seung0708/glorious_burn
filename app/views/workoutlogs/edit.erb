@@ -1,10 +1,7 @@
-<h1>Edit Workoutlog for <%= @workoutlog.id %></h1>
+<h1><%= @workoutlog.created_at %></h1>
 
 <form action="/workoutlogs/<%= @workoutlog.id %>" method="POST">
         <input type="hidden" name="_method" value="patch">
-        <label><strong>Workoutlog Date:</strong></label>
-        <input type="date" name="workoutlog[created_at]" value="<%= @workoutlog.created_at %>">
-        <br></br>
         <label><strong>Workoutlog Name:</strong></label>
         <input type="text" name="workoutlog[name]" value="<%= @workoutlog.name %>">
         <br></br>

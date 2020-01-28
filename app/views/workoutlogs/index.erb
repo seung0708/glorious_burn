@@ -12,14 +12,13 @@
     <tr>
     <% @workoutlog.each do |workoutlog| %>
         <td><%= workoutlog.created_at %></td>
-        <td><%= workoutlog.name %></td>
-        <!-- <% workoutlog.workout_ids.each do |workout| %>
+        <% workoutlog.workouts.each do |workout| %>
             <td><%= workout.name %></td>
-        <% end %> -->
+        <% end %>
         <td><%= workoutlog.sets %></td>
         <td><%= workoutlog.reps %></td>
-        <td><a href="/workoutlogs/<%= workoutlog.id %>">Edit</a><td>
+        <td><a href="/workoutlogs/<%= workoutlog.id %>/edit">Edit</a><td> 
     </tr>
-    <% end %> 
+    <% end %>
 </table>
-        
+    
