@@ -125,7 +125,7 @@ DEPENDENCIES
   capybara
   database_cleaner!
   httparty
-  pry
+  pry (~> 0.12.2)
   rack-test
   rake
   require_all

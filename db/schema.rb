@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20200126132817) do
+ActiveRecord::Schema.define(version: 20200129034400) do
 
   create_table "associatelogs", force: :cascade do |t|
     t.integer "workoutlog_id"
@@ -28,7 +28,6 @@ ActiveRecord::Schema.define(version: 20200126132817) do
     t.integer  "reps"
     t.datetime "created_at"
     t.integer  "sets"
-    t.string   "name"
   end
 
   create_table "workouts", force: :cascade do |t|

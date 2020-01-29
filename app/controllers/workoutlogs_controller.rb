@@ -1,4 +1,6 @@
 class WorkoutlogController < ApplicationController
+require 'sinatra'
+require 'pry'
 
 get '/workoutlogs/new' do
     @workouts = Workout.all
@@ -9,6 +11,7 @@ end
 post '/workoutlogs' do
     workoutlog = current_user.workoutlogs.build(params)
     workout_ids = Workout.find_or_create_by(id: params[:id])
+    binding.pry
     workoutlog.workouts << workout_ids
      if workoutlog.save 
         redirect '/workoutlogs'
@@ -25,6 +28,7 @@ get '/workoutlogs' do
     else 
         erb :'workoutlogs'
     end
+
 end 
 
 get '/workoutlogs/:id' do
@@ -39,7 +43,6 @@ end
 
 patch '/workoutlogs/:id' do 
     @workoutlog = Workoutlog.find(params[:id])
-    if !params["workoutlog"]["sets"].empty? && !params["workoutlog"]["reps"].empty?
     @workoutlog.update(params["workoutlog"])
     redirect "/workoutlogs"
     else 
