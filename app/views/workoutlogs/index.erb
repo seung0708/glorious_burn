@@ -10,10 +10,10 @@
         <th>Edit</th>
     </tr>
     <tr>
-    <% @workoutlog.each do |workoutlog| %>
+        <% @workoutlog.each do |workoutlog| %>
         <td><%= workoutlog.created_at %></td>
-        <% workoutlog.workouts.each do |workout| %>
-            <td><%= workout.name %></td>
+        <% if workoutlog.workout_id == workoutlog.workout.name %>
+        <%= workoutlog.workout.name %>
         <% end %>
         <td><%= workoutlog.sets %></td>
         <td><%= workoutlog.reps %></td>

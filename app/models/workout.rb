@@ -1,7 +1,6 @@
 class Workout < ActiveRecord::Base
-    belongs_to :user
-    has_many :associatelogs
-    has_many :workoutlogs, through: :associatelogs
-    accepts_nested_attributes_for :workoutlogs
+    has_many :workoutlogs, inverse_of: :workout
+    has_many :users, through: :workoutlogs
+    belongs_to :user, class_name: 'User'
     validates_presence_of :name, :description
 end  

@@ -1,8 +1,7 @@
 class Workoutlog < ActiveRecord::Base
     belongs_to :user
-    has_many :associatelogs
-    has_many :workouts, through: :associatelogs
-    accepts_nested_attributes_for :workouts
-    validates_presence_of :created_at, :sets, :reps, presence => true
+    belongs_to :workout, inverse_of: :workoutlogs
+    accepts_nested_attributes_for :workout
+    validates_presence_of :created_at, :sets, :reps, :workout, presence => true
 
 end 

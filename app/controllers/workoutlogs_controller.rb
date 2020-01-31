@@ -3,22 +3,21 @@ require 'sinatra'
 require 'pry'
 
 get '/workoutlogs/new' do
-    @workouts = Workout.all
+    @workout = Workout.all
     erb :'/workoutlogs/new'
 
 end 
     
 post '/workoutlogs' do
-    workoutlog = current_user.workoutlogs.build(params)
-    workout_ids = Workout.find_or_create_by(id: params[:id])
-    binding.pry
-    workoutlog.workouts << workout_ids
-     if workoutlog.save 
-        redirect '/workoutlogs'
-    else
-    @error = "No data entered. Please try again."
-        erb :'/workoutlogs/new'
-    end
+    @workout = Workout.all
+    @workoutlog = current_user.workoutlogs.build(params[:workoutlog], params[:workoutlog][:workout][:name])
+    @workoutlog.workout = Workout.find_by(name: params[name])
+       if  @workoutlog.save 
+         redirect '/workoutlogs'
+       else
+         @error = "No data entered. Please try again."
+         redirect '/workoutlogs/new'  
+     end
 end  
 
 get '/workoutlogs' do
@@ -42,19 +41,19 @@ get '/workoutlogs/:id/edit' do
 end
 
 patch '/workoutlogs/:id' do 
-    @workoutlog = Workoutlog.find(params[:id])
-    @workoutlog.update(params["workoutlog"])
+    @workoutlog = Workoutlog.find(params[:id])  
+    if @workoutlog.update(params["workoutlog"])
     redirect "/workoutlogs"
-    else 
-        @error = "Fields must not be empty. Please try again"
+    else @error = "Fields must not be empty. Please try again"
         erb :'/workoutlogs/edit'
     end     
 end 
 
 
 delete '/workoutlogs/:id' do 
- workoutlog = Workoutlog.find(params[:id])
-  workoutlog.destroy 
+    workoutlog = Workoutlog.find(params[:id])
+    workoutlog.destroy 
     redirect '/workoutlogs'
-    end 
+end 
+
 end 
