@@ -10,8 +10,8 @@ end
     
 post '/workoutlogs' do
     @workout = Workout.all
-    @workoutlog = current_user.workoutlogs.build(params[:workoutlog], params[:workoutlog][:workout][:name])
-    @workoutlog.workout = Workout.find_by(name: params[name])
+    @workoutlog = current_user.workoutlogs.build(params[:workoutlog])
+    @workoutlog.workout == Workout.find(params[:workoutlog][:workout_id])
        if  @workoutlog.save 
          redirect '/workoutlogs'
        else

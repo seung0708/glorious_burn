@@ -8,7 +8,7 @@
     <input type="text" name="name"><br></br> -->
     
     <% Workout.all.each do |workout| %>
-    <input type="checkbox" name="workoutlog[workout_id]" value="<%= workout.id %>"><%= workout.name %></input> 
+    <input type="checkbox" name="workoutlog[workout_id]" id="<%= workout.id %>" value="<%= workout.id %>"><%= workout.name %></input> 
     <% end %> 
     
     <label><h4>Number of Sets:</h4></label>
