@@ -41,8 +41,9 @@ get '/workoutlogs/:id/edit' do
 end
 
 patch '/workoutlogs/:id' do 
-    @workoutlog = Workoutlog.find(params[:id])  
-    if @workoutlog.update(params["workoutlog"])
+    @workoutlog = Workoutlog.find(params[:id])
+    filtered_params = Workoutlog.includes(:workout).where('workout.name = ?', 'params[:name]').references(:workout)
+    if @workoutlog.update(filtered_params)
     redirect "/workoutlogs"
     else @error = "Fields must not be empty. Please try again"
         erb :'/workoutlogs/edit'

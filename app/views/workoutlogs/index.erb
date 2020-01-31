@@ -11,14 +11,16 @@
     </tr>
     <tr>
         <% @workoutlog.each do |workoutlog| %>
-        <td><%= workoutlog.created_at %></td>
-        <% if workoutlog.workout_id == workoutlog.workout.name %>
-        <%= workoutlog.workout.name %>
-        <% end %>
-        <td><%= workoutlog.sets %></td>
-        <td><%= workoutlog.reps %></td>
-        <td><a href="/workoutlogs/<%= workoutlog.id %>/edit">Edit</a><td> 
+        <% if current_user == workoutlog.user %>
+            <td><%= workoutlog.created_at %></td>
+            <% workoutlog.workout_id do |workout| %>
+                <%=workout.name %>
+            <% end %>
+            <td><%= workoutlog.sets %></td>
+            <td><%= workoutlog.reps %></td>
+            <td><a href="/workoutlogs/<%= workoutlog.id %>/edit">Edit</a><td> 
     </tr>
+        <% end %>
     <% end %>
 </table>
     

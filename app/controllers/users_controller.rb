@@ -10,7 +10,7 @@ class UsersController < ApplicationController
             session[:user_id] = user.id
             redirect '/workoutlogs'
         else 
-            @error = "Fields cannot be empty"
+            @error = "Username already used"
             erb :'/users/signup'       
         end 
     end

@@ -15,7 +15,7 @@ class WorkoutsController < ApplicationController
 end 
     
     get '/workouts' do
-        @workout = Workout.all
+        @workout = Workout.all.reverse
         erb :'workouts/index'
     end 
 
@@ -25,7 +25,7 @@ end
     end
 
     get '/workouts/:id/edit' do
-       @workout = Workout.find_by(params[:id])  
+       @workout = Workout.find(params[:id])  
         erb :'workouts/edit'      
     end 
 
