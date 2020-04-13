@@ -12,6 +12,9 @@
         <label><strong>Workout Image:</strong></label>
         <input type="text" name="workout[image]" value="<%= @workout.image %>">
         <br></br>
-        <button type="submit">Edit workout</button>
+          <button type="submit">Edit workout</button>
 </form>
-<p><%= @error %></p> 
+
+<% if flash[:alert] %>
+<%= flash[:alert] %>
+<% end %> 

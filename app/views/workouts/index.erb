@@ -1,3 +1,4 @@
+
 <h1>Workouts</h1>
 <a href="/workouts/new">Add a Workout</a>
 <% @workout.each do |workout| %>
@@ -7,4 +8,8 @@
     <% if current_user == workout.user %>
     <a href="/workouts/<%= workout.id %>/edit">Edit</a>
     <% end %>
+<% end %> 
+
+<% if flash[:alert] %>
+<%= flash[:alert] %>
 <% end %> 

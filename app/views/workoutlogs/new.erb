@@ -4,12 +4,12 @@
     <lable>Date</label>
     <input type="date" name="workoutlog[created_at]" id="workoutlog_created_at"><br></br>
     
-    <!-- <label>Workout Name</label>
-    <input type="text" name="name"><br></br> -->
-    
+    <label>Workout Name</label>
+    <select name="workoutlog[workout_id]">
     <% Workout.all.each do |workout| %>
-    <input type="checkbox" name="workoutlog[workout_id]" id="<%= workout.id %>" value="<%= workout.id %>"><%= workout.name %></input> 
+    <option value="<%= workout.id %>"><%= workout.name %></option>
     <% end %> 
+    </select>
     
     <label><h4>Number of Sets:</h4></label>
     <input type="number" name="workoutlog[sets]"id="workoutlog_sets">
@@ -19,4 +19,7 @@
 
     <input type="submit" value="Submit">
 </form>
-<p><%= @error %></p>
+
+<% if flash[:alert] %>
+<%= flash[:alert] %>
+<% end %> 

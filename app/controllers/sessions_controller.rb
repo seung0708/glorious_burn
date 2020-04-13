@@ -1,3 +1,5 @@
+#require 'sinatra/flash'
+
 class SessionsController < ApplicationController
 
     get '/login' do 
@@ -6,20 +8,14 @@ class SessionsController < ApplicationController
 
 
     post '/login' do
-        if params["username"].empty? || params["password"].empty? 
-            @error = "Fields cannot be empty"
+       @user = User.find_by(username: params["username"])
+         if @user && @user.authenticate(params["password"]) 
+            session[:user_id] = @user.id
+            redirect '/workoutlogs'
+         else
+             flash[:alert] = "Invalid username or password"
             erb :'/users/login'
-        else 
-            user = User.find_by(username: params["username"])
-             #binding.pry
-            if user && user.authenticate(params["password"]) 
-                session[:user_id] = user.id
-                redirect '/workoutlogs'
-            else
-                @error = "Invalid username or password"
-                erb :'/users/login'
-            end
-        end 
+        end
     end 
 
     get '/logout' do

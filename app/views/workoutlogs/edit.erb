@@ -1,7 +1,6 @@
-<h1></h1>
+<form action="/workoutlogs/<%= @workoutlog.id %>" method="POST"> 
 
-<form action="/workoutlogs/<%= @workoutlog.id %>" method="POST">
-    <input type="hidden" name="_method" value="patch">
+<input type="hidden" name="_method" value="patch">
     <label><strong>Workoutlog Date:</strong></label>
     <input type="date" name="workoutlog[created_at]" value="<%= @workoutlog.created_at %>">
     <br></br>
@@ -17,3 +16,7 @@
     <button type="submit">Edit workout</button>
 </form>
 <p><%= @error %></p> 
+
+<% if flash[:alert] %>
+<%= flash[:alert] %>
+<% end %> 

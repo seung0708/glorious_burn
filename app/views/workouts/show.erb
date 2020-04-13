@@ -6,6 +6,7 @@
     <button type="submit">Delete Workout</button>
 </form>
 
-
-
- 
+<% if flash[:alert] %>
+<%= flash[:alert] %>
+<% end %> 
+    

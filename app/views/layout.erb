@@ -8,22 +8,24 @@
     <link rel="stylesheet" href="/stylesheets/main.css" />
   </head>
   <body>
-    <div>
-      <% if logged_in? %> 
-      <div><a href="/workoutlogs">Daily Logs</a></div>
-      <div><a href="/logout">Log Out</a></div>
-      
-      <% else %> 
-      <div><a href="/signup">Sign Up</a></div>
-      <div><a href="/login">Login</a></div>
-      <% end %>
-      <div><a href="/">Home</a></div>
-      <div><a href="/workouts">Workouts</a></div>
-    </div>
     <div class="wrapper">
+        <nav>
+         <% if !logged_in? %>  
+           <a href="/">Home</a>
+           <a href="/signup">Sign Up</a>
+           <a href="/login">Login</a>
+          <% else %>
+            <a href="/workoutlogs">Daily Logs</a>
+            <a href="/logout">Log Out</a>
+            <a href="/workouts">Workouts</a>
+         <% end %>   
+         </nav>
+
+         
 
         <%= yield %>
 
+        <%= "<div class='notice'>#{flash[:notice]}</div>" if flash[:notice] %>
     </div>
 
 

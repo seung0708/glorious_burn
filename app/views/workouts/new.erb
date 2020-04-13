@@ -13,5 +13,8 @@
         <br></br>
         <button type="submit">Add workout</button>
 </form>
-<p><%= @error %></p>
+
+<% if flash[:alert] %>
+<%= flash[:alert] %>
+<% end %> 
     

@@ -1,60 +1,62 @@
 class WorkoutlogController < ApplicationController
-require 'sinatra'
-require 'pry'
-
-get '/workoutlogs/new' do
-    @workout = Workout.all
-    erb :'/workoutlogs/new'
-
-end 
+    before '/workoutlogs/*' do 
+        require_login
+    end
     
-post '/workoutlogs' do
+    get '/workoutlogs/new' do
     @workout = Workout.all
+     
+        erb :'/workoutlogs/new'
+     
+    end 
+    
+   post '/workoutlogs' do 
     @workoutlog = current_user.workoutlogs.build(params[:workoutlog])
-    @workoutlog.workout == Workout.find(params[:workoutlog][:workout_id])
-       if  @workoutlog.save 
+    #binding.pry
+    @workoutlog.workout = Workout.find(params[:workoutlog][:workout_id])
+      if  @workoutlog.save 
          redirect '/workoutlogs'
        else
-         @error = "No data entered. Please try again."
+         flash[:alert] = "No data entered. Please try again."
          redirect '/workoutlogs/new'  
      end
-end  
+   end  
 
-get '/workoutlogs' do
+   get '/workoutlogs' do
     if logged_in?
-        @workoutlog = Workoutlog.all
-        erb :'workoutlogs/index'
+     @workoutlog = Workoutlog.all
+     erb :'workoutlogs/index'
     else 
-        erb :'workoutlogs'
-    end
+      flash[:alert] = "Please login to view this page"
+      redirect '/login'
+    end 
+   end 
 
-end 
+   get '/workoutlogs/:id' do
+     @workoutlog = Workoutlog.find(params[:id])
+     
+     erb :'/workoutlogs/show'  
+   end
 
-get '/workoutlogs/:id' do
-    @workoutlogs = Workoutlog.find(params[:id])
-    erb :'/workoutlogs/show'
-end
+   get '/workoutlogs/:id/edit' do
+     @workoutlog = Workoutlog.find_by(params[:id])
+     
+     erb :'workoutlogs/edit'  
+   end
 
-get '/workoutlogs/:id/edit' do
-    @workoutlog = Workoutlog.find_by(params[:id])
-     erb :'workoutlogs/edit'        
-end
-
-patch '/workoutlogs/:id' do 
-    @workoutlog = Workoutlog.find(params[:id])
-    filtered_params = Workoutlog.includes(:workout).where('workout.name = ?', 'params[:name]').references(:workout)
-    if @workoutlog.update(filtered_params)
-    redirect "/workoutlogs"
-    else @error = "Fields must not be empty. Please try again"
-        erb :'/workoutlogs/edit'
-    end     
-end 
+   patch '/workoutlogs/:id' do 
+     @workoutlog = Workoutlog.find(params[:id])
+     filtered_params = Workoutlog.includes(:workout).where('workout.name = ?', 'params[:name]').references(:workout)
+     if @workoutlog.update(filtered_params)
+        redirect "/workoutlogs"
+     end
+   end 
 
 
-delete '/workoutlogs/:id' do 
-    workoutlog = Workoutlog.find(params[:id])
-    workoutlog.destroy 
-    redirect '/workoutlogs'
-end 
+   delete '/workoutlogs/:id' do 
+     workoutlog = Workoutlog.find(params[:id])
+        workoutlog.destroy 
+        redirect '/workoutlogs'
+   end 
 
 end 

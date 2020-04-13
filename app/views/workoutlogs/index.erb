@@ -3,7 +3,7 @@
 
 <table>
     <tr>
-        <th>Date</th>
+        <th>Date </th>
         <th>Workout Name</th>
         <th>Number of Sets</th>
         <th>Number of Reps</th>
@@ -12,15 +12,17 @@
     <tr>
         <% @workoutlog.each do |workoutlog| %>
         <% if current_user == workoutlog.user %>
-            <td><%= workoutlog.created_at %></td>
-            <% workoutlog.workout_id do |workout| %>
-                <%=workout.name %>
-            <% end %>
-            <td><%= workoutlog.sets %></td>
-            <td><%= workoutlog.reps %></td>
-            <td><a href="/workoutlogs/<%= workoutlog.id %>/edit">Edit</a><td> 
+            <td align="center"><%= workoutlog.created_at.to_date %></td>
+            <td align="center"><%= workoutlog.workout.name %></td>
+            <td align="center"><%= workoutlog.sets %></td>
+            <td align="center"><%= workoutlog.reps %></td>
+            <td align="center"><a href="/workoutlogs/<%= workoutlog.id %>/edit">Edit</a><td> 
     </tr>
         <% end %>
     <% end %>
-</table>
+</table> 
+
+<% if flash[:alert] %>
+<%= flash[:alert] %>
+<% end %> 
     
