@@ -2,7 +2,7 @@
 
 <form action="/workoutlogs" method="POST">
     <lable>Date</label>
-    <input type="date" name="workoutlog[created_at]" id="workoutlog_created_at"><br></br>
+    <input type="date" name="workoutlog[created_at]"><br></br>
     
     <label>Workout Name</label>
     <select name="workoutlog[workout_id]">
@@ -12,10 +12,10 @@
     </select>
     
     <label><h4>Number of Sets:</h4></label>
-    <input type="number" name="workoutlog[sets]"id="workoutlog_sets">
+    <input type="number" name="workoutlog[sets]">
         
     <label><h4>Number of Reps:</h4></label>
-    <input type="number" name="workoutlog[reps]" id="workoutlog_reps">
+    <input type="number" name="workoutlog[reps]">
 
     <input type="submit" value="Submit">
 </form>

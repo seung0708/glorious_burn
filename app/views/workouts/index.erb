@@ -5,9 +5,11 @@
     <h2><a href="/workouts/<%= workout.id %>"><%= workout.name %></a></h2>
     <p><%= workout.description %></p> 
     <img src="<%=workout.image %>" alt="workout">
-    <% if current_user == workout.user %>
-    <a href="/workouts/<%= workout.id %>/edit">Edit</a>
-    <% end %>
+    <% workout.users.each do |user| %>
+        <% if current_user.id == user.id %>
+            <a href="/workouts/<%= workout.id %>/edit">Edit</a>
+        <% end %>
+    <%end%>
 <% end %> 
 
 <% if flash[:alert] %>

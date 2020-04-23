@@ -9,14 +9,15 @@ class WorkoutsController < ApplicationController
     end 
         
     post '/workouts' do 
-    @workout = current_user.workouts.build(params)
-        if @workout.save
-        redirect 'workouts'
-        else
+      @workout = current_user.workouts.build(name: params[:name], description: params[:description], image: params[:image])
+      #binding.pry
+       if @workout.save 
+          redirect 'workouts'
+       else
         flash[:alert] = "Invalid entry. Please try again."
-        redirect '/workouts'
-    end
-end 
+        redirect '/workouts' 
+      end
+    end 
     
     get '/workouts' do
         @workout = Workout.all.reverse
@@ -44,7 +45,7 @@ end
         @workout.update(params["workout"])
         redirect "/workouts/#{params[:id]}"
         else 
-            @error = "Fields must not be empty. Please try again"
+            flash[:alert] = "Fields must not be empty. Please try again"
             erb :'/workouts/edit'
         end     
     end 

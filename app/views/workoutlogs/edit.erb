@@ -1,11 +1,10 @@
+
+<h2><%= @workoutlog.workout.name %></h2>
 <form action="/workoutlogs/<%= @workoutlog.id %>" method="POST"> 
 
 <input type="hidden" name="_method" value="patch">
     <label><strong>Workoutlog Date:</strong></label>
     <input type="date" name="workoutlog[created_at]" value="<%= @workoutlog.created_at %>">
-    <br></br>
-    <label><strong>Workoutlog Name:</strong></label>
-    <input type="text" name="workoutlog[workout][name]" value="<%= @workoutlog.workout.name %>">
     <br></br>
     <label><strong>Workoutlog Sets:</strong></label>
     <input type="number" name="workoutlog[sets]" value="<%= @workoutlog.sets %>">
@@ -15,7 +14,6 @@
     <br></br>
     <button type="submit">Edit workout</button>
 </form>
-<p><%= @error %></p> 
 
 <% if flash[:alert] %>
 <%= flash[:alert] %>

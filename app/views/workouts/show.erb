@@ -1,5 +1,5 @@
 <h1><%= @workout.name %></h1>
-<h2><%= @workout.description %></h2>
+<h3><%= @workout.description %></h3>
 <img src="<%= @workout.image %>" alt="workout">
 <form action="/workouts/<%= @workout.id %>" method="post">
     <input type="hidden" name="_method" value="delete">

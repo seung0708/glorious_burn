@@ -13,7 +13,6 @@ class WorkoutlogController < ApplicationController
    post '/workoutlogs' do 
     @workoutlog = current_user.workoutlogs.build(params[:workoutlog])
     #binding.pry
-    @workoutlog.workout = Workout.find(params[:workoutlog][:workout_id])
       if  @workoutlog.save 
          redirect '/workoutlogs'
        else
@@ -23,13 +22,8 @@ class WorkoutlogController < ApplicationController
    end  
 
    get '/workoutlogs' do
-    if logged_in?
      @workoutlog = Workoutlog.all
      erb :'workoutlogs/index'
-    else 
-      flash[:alert] = "Please login to view this page"
-      redirect '/login'
-    end 
    end 
 
    get '/workoutlogs/:id' do
@@ -45,13 +39,16 @@ class WorkoutlogController < ApplicationController
    end
 
    patch '/workoutlogs/:id' do 
-     @workoutlog = Workoutlog.find(params[:id])
-     filtered_params = Workoutlog.includes(:workout).where('workout.name = ?', 'params[:name]').references(:workout)
-     if @workoutlog.update(filtered_params)
-        redirect "/workoutlogs"
-     end
+      @workoutlog = Workoutlog.find(params[:id])
+      #binding.pry
+        if @workoutlog
+          @workoutlog.update(params[:workoutlog])
+           redirect "/workoutlogs"
+      else 
+         flash[:alert] = "Invalid Entry. Please try again"
+         erb :'/workoutlogs/edit'
+      end
    end 
-
 
    delete '/workoutlogs/:id' do 
      workoutlog = Workoutlog.find(params[:id])
