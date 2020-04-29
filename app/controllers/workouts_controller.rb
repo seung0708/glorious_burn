@@ -4,13 +4,11 @@ class WorkoutsController < ApplicationController
     end
 
     get '/workouts/new' do
-        
         erb :'/workouts/new'
     end 
         
     post '/workouts' do 
       @workout = current_user.workouts.build(name: params[:name], description: params[:description], image: params[:image])
-      #binding.pry
        if @workout.save 
           redirect 'workouts'
        else
@@ -35,13 +33,13 @@ class WorkoutsController < ApplicationController
     end
 
     get '/workouts/:id/edit' do
-       @workout = Workout.find(params[:id])  
+       @workout = Workout.find(params[:id])
         erb :'workouts/edit'      
     end 
 
     patch '/workouts/:id' do 
         @workout = Workout.find(params[:id])
-        if !params["workout"]["name"].empty? && !params["workout"]["description"].empty? 
+        if !params["workout"]["name"].empty? && !params["workout"]["description"].empty?
         @workout.update(params["workout"])
         redirect "/workouts/#{params[:id]}"
         else 
@@ -51,8 +49,8 @@ class WorkoutsController < ApplicationController
     end 
     
     delete '/workouts/:id' do 
-        workout = Workout.find(params[:id]) 
-        workout.destroy 
+        @workout = Workout.find(params[:id]) 
+        @workout.destroy 
         redirect '/workouts'
     end 
 end 

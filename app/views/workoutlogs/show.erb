@@ -1,0 +1,13 @@
+<h1><%= @workoutlog.created_at.to_date %></h1>
+<h3><%= @workoutlog.workout.name %> <%= @workoutlog.sets %> X  <%= @workoutlog.reps %></h3>
+<h4>Image</h4>
+<img src="<%= @workoutlog.workout.image %>" alt="workoutlog">
+<form action="/workoutlogs/<%= @workoutlog.id %>" method="post">
+    <input type="hidden" name="_method" value="delete">
+    <button type="submit">Delete Log</button>
+</form>
+
+<% if flash[:alert] %>
+<%= flash[:alert] %>
+<% end %> 
+    

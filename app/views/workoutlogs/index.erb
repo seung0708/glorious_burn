@@ -1,26 +1,30 @@
 <h1>Daily Logs</h1>
 <a href="/workoutlogs/new">Add a Log</a>
 
+<% current_user.workoutlogs.each do |workoutlog| %>
+    <% if current_user == workoutlog.user %>
 <table>
+
     <tr>
-        <th>Date </th>
-        <th>Workout Name</th>
-        <th>Sets</th>
-        <th>Reps</th>
-        <th>Edit</th>
+        <th style="text-align: center"><a href="/workoutlogs/<%= workoutlog.id %>"</a><%= workoutlog.created_at.to_date %></th>
+        <!-- <th>Workout Name</th> -->
+        <!-- <th>Sets</th> -->
+        <!-- <th>Reps</th> -->
+        <!-- <th>Edit</th> -->
     </tr>
     <tr>
-        <% @workoutlog.each do |workoutlog| %>
-        <% if current_user == workoutlog.user %>
-            <td align="center"><%= workoutlog.created_at.to_date %></td>
+            <!-- <td align="center"><%= workoutlog.created_at.to_date %></td> -->
             <td align="center"><%= workoutlog.workout.name %></td>
+
+                
             <td align="center"><%= workoutlog.sets %></td>
             <td align="center"><%= workoutlog.reps %></td>
             <td align="center"><a href="/workoutlogs/<%= workoutlog.id %>/edit">Edit</a><td> 
     </tr>
         <% end %>
-    <% end %>
+ 
 </table> 
+<% end %>
 
 <% if flash[:alert] %>
 <%= flash[:alert] %>

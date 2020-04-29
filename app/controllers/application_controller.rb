@@ -27,10 +27,17 @@ class ApplicationController < Sinatra::Base
 
     def require_login 
       if !logged_in? 
-        flash[:notice] = "You must be logged in."
+        flash[:alert] = "You must be logged in."
         redirect '/login'
       end
     end
+
+    def redirect_if_not_owner
+      if current_user.id != @workoutlog.user_id
+        flash[:alert] = "Unauthorized access. Please login to view this page."
+        redirect '/workoutlogs'
+      end
+    end 
 
   end 
 
