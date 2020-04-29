@@ -54,6 +54,7 @@ class WorkoutlogController < ApplicationController
 
    delete '/workoutlogs/:id' do 
      @workoutlog = Workoutlog.find(params[:id])
+     redirect_if_not_owner
      @workoutlog.destroy
      redirect '/workoutlogs'
     end 
